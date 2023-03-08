@@ -1,0 +1,116 @@
+/* Default styles for desktop */
+.styled-table {
+  border-collapse: collapse;
+  margin: auto;
+  font-size: 0.9em;
+  max-width: 800px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color: #327f87;
+  color: #ffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.btn {
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.btn-block {
+  background-color: red;
+}
+
+.btn-unblock {
+  background-color: green;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  /* Adjust max-width for smaller screens */
+  .styled-table {
+    max-width: 100%;
+  }
+
+  /* Make table cells stack vertically */
+  .styled-table th,
+  .styled-table td {
+    display: block;
+  }
+
+  /* Add padding and margin to table cells */
+  .styled-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-right: 10px;
+    text-align: left;
+  }
+
+  .styled-table td {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-right: 10px;
+    text-align: left;
+  }
+
+  /* Hide table header */
+  .styled-table thead {
+    display: none;
+  }
+
+  /* Show table header on mobile devices in landscape mode */
+  @media (orientation: landscape) {
+    .styled-table thead {
+      display: table-header-group;
+    }
+  }
+
+  /* Style table rows */
+  .styled-table tbody tr {
+    display: block;
+    margin-bottom: 20px;
+    border-bottom: none;
+  }
+
+  .styled-table tbody tr:last-of-type {
+    margin-bottom: 0;
+  }
+
+  /* Style table cells in rows */
+  .styled-table tbody td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .styled-table tbody td:last-of-type:before {
+    display: none;
+  }
+}
