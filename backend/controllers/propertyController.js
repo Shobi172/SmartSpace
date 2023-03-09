@@ -58,7 +58,27 @@ const addProperty = async (req, res) => {
 const getProperties = async (req, res) => {
   try {
     const properties = await Property.find();
-    res.json(properties);
+    Property.aggregate([
+      { $lookup: {
+          from: 'users',
+          localField: 'postedBy',
+          foreignField: '_id',
+          as: 'userDetails'
+        }
+      },
+      { $project: {
+          _id: '$userDetails._id',
+          userName: '$userDetails.name'
+        }
+      }
+    ], (err, users) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(users);
+        res.json({properties,users});
+      }
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -7,7 +7,7 @@ import Home from "./pages/user/Home";
 import Login from "./pages/user/Login";
 import Signup from "./pages/user/Signup";
 import Property from "./pages/user/Property";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./redux/features/authSlice";
 import About from "./pages/user/About";
 import Contact from "./pages/user/Contact";
@@ -19,12 +19,15 @@ import PropertyType from "./pages/admin/PropertyType";
 import AdminLogin from "./pages/admin/Login";
 import AddProperty from "./pages/user/AddProperty";
 
+
 function App() {
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
-    dispatch(setUser(user));
+    const user = JSON.parse(localStorage.getItem("profile"));
+    if (user) {
+      dispatch(setUser(user));
+    }
   }, []);
 
   return (
@@ -39,7 +42,7 @@ function App() {
           <Route path="/about" exact element={<About />} />
           <Route path="/contact" exact element={<Contact />} />
           <Route path="/services" exact element={<Property />} />
-          <Route path="/addproperty" element={user ? <AddProperty /> : <Navigate to="/signin"/>} />
+          <Route path="/addproperty" element={ <AddProperty /> } />
 
           <Route exact path="/admin" element={<AdminLogin />} />
           <Route exact path="/admin/dashboard" element={<Dashboard />} />

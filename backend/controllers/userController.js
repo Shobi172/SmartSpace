@@ -64,7 +64,31 @@ const signin = async (req, res) => {
   }
 };
 
+const search = async (req, res) => {
+  const location = req.query.location || "";
+  const propertyType = req.query.propertyType || "";
+  const priceRange = req.query.priceRange || "";
+
+  try {
+    const properties = await Property.find({
+      $or: [
+        { address: { $regex: location, $options: "i" } },
+        { propertyType: { $regex: propertyType, $options: "i" } },
+        { rentalPrice: { $regex: priceRange, $options: "i" } },
+      ],
+    });
+
+    const users = await User.find({ _id: { $in: properties.map((p) => p.postedBy) } });
+
+    res.json({ properties, users });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server error");
+  }
+}
+
 module.exports = {
   signup,
   signin,
+  search
 };

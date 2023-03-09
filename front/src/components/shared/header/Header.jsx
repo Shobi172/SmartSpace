@@ -8,7 +8,8 @@ import decode from "jwt-decode";
 
 const Header = () => {
   const [navList, setNavList] = useState(false);
-  const { user } = useSelector((state) => ({ ...state.auth }));
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
   const dispatch = useDispatch();
   const token = user?.token;
 
@@ -71,7 +72,7 @@ const Header = () => {
             </ul>
           </div>
 
-          {user?.result?._id ? (
+          {user ? (
             <div className="button flex">
               <Link to="/signin">
                 <button
